@@ -1,11 +1,14 @@
 _         = require 'lodash'
 async     = require 'async'
+mongoose  = require 'mongoose'
 rest      = require '../rest'
 log4js    = require 'log4js'
 conf      = require '../configs'
 
 
 utils =
+  model: (a) ->
+    mongoose.model a
   getLogger: (k) ->
     l = log4js.getLogger k
     if k and not l._events

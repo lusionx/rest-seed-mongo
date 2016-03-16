@@ -1,9 +1,12 @@
-{Schema}  = require 'mongoose'
+_         = require 'lodash'
 
 
-M = Schema
-  a: String
+M =
+  a: Number
 
 
 module.exports = (ose, name) ->
-  ose.model name, M
+  opt =
+    strict: no
+  m = new ose.Schema M, opt
+  ose.model name, m, name

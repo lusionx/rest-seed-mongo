@@ -1,10 +1,10 @@
-{Schema}  = require 'mongoose'
-
-
-M = Schema
+M =
   id: String
   name: String
 
 
 module.exports = (ose, name) ->
-  ose.model name, M
+  opt =
+    strict: no
+  m = new ose.Schema M, opt
+  ose.model name, m, name

@@ -12,9 +12,11 @@ log4js.configure
 
 
 mongoose = require 'mongoose'
+mongoose.set 'debug', yes
 mongoose.connect config.db
 
 require('./models')(mongoose)
+console.log mongoose.modelNames()
 
 rest = require './rest'
 rest __dirname
