@@ -8,3 +8,4 @@ module.exports = (r) ->
   r.get '/home/session',  "home#session"
 
   r.get '/:col/_search',  'search#index'
+  r.get '/:col/:id',      'search#byid'

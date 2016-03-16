@@ -10,5 +10,14 @@ index = [
       next()
 ]
 
+byid = [
+  (req, res, next) ->
+    M = utils.model req.params.col
+    M.findById req.params.id, (err, m) ->
+      return next err if err
+      res.json m
+      next()
+]
 
-module.exports = {index}
+
+module.exports = {index, byid}
