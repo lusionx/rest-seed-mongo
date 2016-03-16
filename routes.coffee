@@ -10,5 +10,5 @@ module.exports = (r) ->
   r.get '/:col/_search',    'search#index'
   r.get '/:col/:id',        'search#byid'
 
-  r.post '/:col/_create',   'create#index'
-  r.del '/:col/:id',        'remove#index'
+  r.post '/:col',           'setdoc#create'
+  r.del '/:col/:id',        'setdoc#remove'
