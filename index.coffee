@@ -18,5 +18,5 @@ mongoose.connect config.db
 require('./models')(mongoose)
 console.log mongoose.modelNames()
 
-rest = require './rest'
+rest = require 'rest-seed'
 rest __dirname

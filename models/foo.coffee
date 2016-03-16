@@ -1,14 +1,13 @@
 _         = require 'lodash'
 
 
-M =
-  a: Number
-  id: String
 
 
-module.exports = (ose, name) ->
+module.exports = (Schema) ->
+  M =
+    a: Number
+    id: String
   opt =
     strict: no
     id: no
-  m = new ose.Schema M, opt
-  ose.model name, m, name
+  new Schema M, opt

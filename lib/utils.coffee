@@ -1,7 +1,7 @@
 _         = require 'lodash'
 async     = require 'async'
 mongoose  = require 'mongoose'
-rest      = require '../rest'
+rest      = require 'rest-seed'
 log4js    = require 'log4js'
 conf      = require '../configs'
 

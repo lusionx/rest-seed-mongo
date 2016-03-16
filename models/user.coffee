@@ -1,11 +1,10 @@
-M =
-  id: String
-  name: String
 
 
-module.exports = (ose, name) ->
+module.exports = (Schema) ->
+  M =
+    id: String
+    name: String
   opt =
     strict: no
     id: no
-  m = new ose.Schema M, opt
-  ose.model name, m, name
+  new Schema M, opt

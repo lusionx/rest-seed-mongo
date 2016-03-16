@@ -1,6 +1,6 @@
 _     = require 'lodash'
 utils = require '../../lib/utils'
-rest  = require '../../rest'
+rest  = require 'rest-seed'
 
 modules = {}
 for file in utils.readdir(__dirname, ['coffee', 'js'], ['index', 'defaults'])

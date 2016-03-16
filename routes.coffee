@@ -7,5 +7,8 @@ module.exports = (r) ->
   r.get "/home/index",    "home#index"
   r.get '/home/session',  "home#session"
 
-  r.get '/:col/_search',  'search#index'
-  r.get '/:col/:id',      'search#byid'
+  r.get '/:col/_search',    'search#index'
+  r.get '/:col/:id',        'search#byid'
+
+  r.post '/:col/_create',   'create#index'
+  r.del '/:col/:id',        'remove#index'

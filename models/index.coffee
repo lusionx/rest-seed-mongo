@@ -10,6 +10,7 @@ for file in utils.readdir(__dirname, ['coffee', 'js'], ['index', 'defaults'])
 
 module.exports = (ose) ->
   _.each modules, (fn, name) ->
-    fn ose, name
+    m = fn ose.Schema
+    ose.model name, m, name
 
 
