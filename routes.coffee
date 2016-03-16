@@ -6,3 +6,5 @@ module.exports = (r) ->
   # 首页默认路由(done)
   r.get "/home/index",    "home#index"
   r.get '/home/session',  "home#session"
+
+  r.get '/:col/_search',  'search#index'

@@ -10,7 +10,7 @@ conf =
     version: '0.0.1'
     port: 8100
 
-  db: 'mongodb://xxx/db'
+  db: 'mongodb://10.10.3.113:27017/test'
 
   apiRoot: '/api_v2'
 
