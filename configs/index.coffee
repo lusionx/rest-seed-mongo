@@ -7,4 +7,8 @@ ext =
   ]
   privateEmails: [
   ]
+
+  search:
+    LIMIT: 10
+    LIMIT_MAX: 1000
 module.exports = _.extend {}, ext, conf

@@ -2,16 +2,29 @@ _       = require 'lodash'
 async   = require 'async'
 
 utils   = require '../lib/utils'
+config  = require '../configs'
 helper  = require './helper'
 
 logger  = utils.getLogger 'ctr-search'
 
 Page = (req) ->
+  q = req.query
   page =
-    skip: +req.query.skip or +req.query.form or 0
-    limit: +req.query.limit or +req.query.size or 10
-  if page.limit < 0 or page.limit > 1000
-    page.limit = 1000
+    skip: +q.skip or +q.form or 0
+    limit: +q.limit or +q.size or config.search.LIMIT
+  if page.limit < 0
+    page.limit = config.search.LIMIT
+  if page.limit > config.search.LIMIT_MAX
+    page.limit = config.search.LIMIT_MAX
+  if s = q.sort
+    page.sort = {}
+    if m = /^([+\-]{1})([a-zA-z0-9\.]+$)/.exec s
+      page.sort[m[2]] = if m[1] is '+' then 1 else -1
+    else if m = /^([+\-]{1})([a-zA-z0-9\.]+)([+\-]{1})([a-zA-z0-9\.]+$)/.exec s
+      page.sort[m[2]] = if m[1] is '+' then 1 else -1
+      page.sort[m[4]] = if m[3] is '+' then 1 else -1
+    else
+      delete page.sort
   page
 
 Fields = (req) ->
