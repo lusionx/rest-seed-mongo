@@ -1,5 +1,10 @@
+_       = require 'lodash'
+async   = require 'async'
+
 utils   = require '../lib/utils'
 helper  = require './helper'
+
+logger  = utils.getLogger 'ctr-setdoc'
 
 
 create = [
@@ -16,16 +21,49 @@ create = [
 remove = [
   helper.rest.model 'Model'
   helper.assert.exists 'Model'
-  helper.rest.byid 'Model', 'id', 'm'
-  helper.assert.exists 'm'
   (req, res, next) ->
-    req.hooks.m.remove (err) ->
+    M = req.hooks.Model
+    id = req.params.id
+    M.findByIdAndRemove id, (err) ->
       return next err if err
       res.send 204
       next()
 ]
 
 replace = [
+  helper.rest.model 'Model'
+  helper.assert.exists 'Model'
+  helper.rest.byid 'Model', 'id', 'm'
+  helper.assert.exists 'm'
+  (req, res, next) ->
+    m = req.hooks.m
+    ks = []
+    _.each req.body, (v, k) ->
+      ks.push k
+      m.set k, v
+    o = m.toJSON()
+    _.each o, (v, k) ->
+      return if '_' is k[0]
+      m.set k, undefined if k not in ks
+    q = m.save()
+    q.then (mm) ->
+      res.json mm
+      next()
 ]
 
-module.exports = {create, remove}
+merge = [
+  helper.rest.model 'Model'
+  helper.assert.exists 'Model'
+  helper.rest.byid 'Model', 'id', 'm'
+  helper.assert.exists 'm'
+  (req, res, next) ->
+    m = req.hooks.m
+    _.each req.body, (v, k) ->
+      m.set k, v
+    q = m.save()
+    q.then (mm) ->
+      res.json mm
+      next()
+]
+
+module.exports = {create, remove, replace, merge}

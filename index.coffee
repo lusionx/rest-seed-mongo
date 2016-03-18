@@ -14,6 +14,10 @@ log4js.configure
 mongoose = require 'mongoose'
 mongoose.set 'debug', yes
 mongoose.connect config.db
+db = mongoose.connection
+db.on 'error', (err) ->
+  console.error err
+db.once 'open', () -> console.error 'mongoose open'
 
 require('./models')(mongoose)
 console.log mongoose.modelNames()

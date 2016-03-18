@@ -10,5 +10,7 @@ module.exports = (r) ->
   r.get '/:col/_search',    'search#index'
   r.get '/:col/:id',        'search#byid'
 
-  r.post '/:col',           'setdoc#create'
+  r.post '/:col/_create',   'setdoc#create'
+  r.put '/:col/:id',        'setdoc#replace'
+  r.patch '/:col/:id',      'setdoc#merge'
   r.del '/:col/:id',        'setdoc#remove'
