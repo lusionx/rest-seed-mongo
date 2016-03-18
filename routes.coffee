@@ -8,6 +8,9 @@ module.exports = (r) ->
   r.get '/home/session',  "home#session"
 
   r.get '/:col/_search',    'search#index'
+  r.post '/:col/_search',   'search#query'
+  r.put '/:col/_search',    'search#query'
+
   r.get '/:col/:id',        'search#byid'
 
   r.post '/:col/_create',   'setdoc#create'
