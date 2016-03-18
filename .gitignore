@@ -7,3 +7,4 @@ thumb
 *.log
 *.js
 *~
+configs/config.production.coffee
