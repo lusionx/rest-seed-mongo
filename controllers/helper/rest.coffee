@@ -7,8 +7,10 @@ utils   = require '../../lib/utils'
 model = (v='Model', col='col') ->
   (req, res, next) ->
     name = _.get(req.params, col) or _.get(req.hooks, col)
-    req.hooks[v] = utils.model name
-    next()
+    M = req.hooks[v] = utils.model name
+    return next() if M
+    res.json 400, {code: 'ResourceNotFound', message: "Collection(#{name})NotExists"}
+    next no
 
 
 byid = (model = 'Model', id='id', ref='') ->

@@ -9,7 +9,6 @@ logger  = utils.getLogger 'ctr-setdoc'
 
 create = [
   helper.rest.model 'Model'
-  helper.assert.exists 'Model'
   (req, res, next) ->
     M = req.hooks.Model
     M.create req.body, (err, m) ->
@@ -20,7 +19,6 @@ create = [
 
 remove = [
   helper.rest.model 'Model'
-  helper.assert.exists 'Model'
   (req, res, next) ->
     M = req.hooks.Model
     id = req.params.id
@@ -32,7 +30,6 @@ remove = [
 
 replace = [
   helper.rest.model 'Model'
-  helper.assert.exists 'Model'
   helper.rest.byid 'Model', 'id', 'm'
   helper.assert.exists 'm'
   (req, res, next) ->
@@ -53,7 +50,6 @@ replace = [
 
 merge = [
   helper.rest.model 'Model'
-  helper.assert.exists 'Model'
   helper.rest.byid 'Model', 'id', 'm'
   helper.assert.exists 'm'
   (req, res, next) ->

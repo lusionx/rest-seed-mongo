@@ -5,10 +5,14 @@ rest      = require 'rest-seed'
 log4js    = require 'log4js'
 conf      = require '../configs'
 
+modelNames = null
 
 utils =
   model: (a) ->
-    mongoose.model a
+    modelNames = mongoose.modelNames() if not modelNames
+    names = modelNames
+    return mongoose.model a if a in names
+    null
   getLogger: (k) ->
     l = log4js.getLogger k
     if k and not l._events

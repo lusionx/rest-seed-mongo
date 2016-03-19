@@ -37,7 +37,6 @@ Fields = (req) ->
 
 index = [
   helper.rest.model 'Model'
-  helper.assert.exists 'Model'
   (req, res, next) ->
     M = req.hooks.Model
     query = {}
@@ -52,7 +51,6 @@ index = [
 
 query = [
   helper.rest.model 'Model'
-  helper.assert.exists 'Model'
   (req, res, next) ->
     M = req.hooks.Model
     M.find req.body, Fields(req), Page(req), (err, m) ->
@@ -63,7 +61,6 @@ query = [
 
 byid = [
   helper.rest.model 'Model'
-  helper.assert.exists 'Model'
   helper.rest.byid 'Model', 'id', 'm'
   helper.assert.exists 'm'
   helper.rest.send 'm'
