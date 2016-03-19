@@ -11,5 +11,5 @@ ext =
   search:
     LIMIT: 10
     LIMIT_MAX: 1000
-  models: ['foo', 'user']
+  models: ['-system.indexes', 'foo2']
 module.exports = _.extend {}, ext, conf
