@@ -37,7 +37,9 @@ replace = [
     ks = []
     _.each req.body, (v, k) ->
       ks.push k
-      m.set k, v
+      if v isnt m.get k
+        m.set k, v
+        m.markModified k
     o = m.toJSON()
     _.each o, (v, k) ->
       return if '_' is k[0]
@@ -55,7 +57,10 @@ merge = [
   (req, res, next) ->
     m = req.hooks.m
     _.each req.body, (v, k) ->
-      m.set k, v
+      _v = m.get k
+      if v isnt m.get k
+        m.set k, v
+        m.markModified k
     q = m.save()
     q.then (mm) ->
       res.json mm
