@@ -34,6 +34,7 @@ Fields = (req) ->
     fields = f
   fields
 
+HEAD_TOTAL = 'X-Content-Total'
 
 index = [
   helper.rest.model 'Model'
@@ -43,20 +44,28 @@ index = [
     v = req.query.q
     if v and m = /^(.+?):(.+?)$/.exec v
       query[m[1]] = m[2]
-    M.find query, Fields(req), Page(req), (err, m) ->
+    M.count query, (err, c) ->
+      res.header HEAD_TOTAL, c
       return next err if err
-      res.json m
-      next()
+      return res.json([]) and next() if c is 0
+      M.find query, Fields(req), Page(req), (err, m) ->
+        return next err if err
+        res.json m
+        next()
 ]
 
 query = [
   helper.rest.model 'Model'
   (req, res, next) ->
     M = req.hooks.Model
-    M.find req.body, Fields(req), Page(req), (err, m) ->
+    M.count query, (err, c) ->
+      res.header HEAD_TOTAL, c
       return next err if err
-      res.json m
-      next()
+      return res.json([]) and next() if c is 0
+      M.find req.body, Fields(req), Page(req), (err, m) ->
+        return next err if err
+        res.json m
+        next()
 ]
 
 byid = [
