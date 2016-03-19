@@ -19,7 +19,11 @@ db.on 'error', (err) ->
   console.error err
 db.once 'open', () -> console.error 'mongoose open'
 
-require('./models')(mongoose)
+_.each config.models, (name) ->
+  m = new mongoose.Schema {},
+    strict: no
+    id: no
+  mongoose.model name, m, name
 console.log mongoose.modelNames()
 
 rest = require 'rest-seed'
