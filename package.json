@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --compilers coffee:coffee-script/register ./test/spec"
   },
   "repository": {
     "type": "git",
@@ -25,5 +25,9 @@
     "mongoose": "^4.4.7",
     "redis": "^2.5.1",
     "tv4": "^1.2.7"
+  },
+  "devDependencies": {
+    "request": "^2.69.0",
+    "should": "^8.2.2"
   }
 }

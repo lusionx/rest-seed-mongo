@@ -10,7 +10,7 @@ logger  = utils.getLogger 'ctr-search'
 Page = (req) ->
   q = req.query
   page =
-    skip: +q.skip or +q.form or 0
+    skip: +q.skip or +q.from or 0
     limit: +q.limit or +q.size or config.search.LIMIT
   if page.limit < 0
     page.limit = config.search.LIMIT
