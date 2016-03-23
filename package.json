@@ -1,7 +1,7 @@
 {
-  "name": "rest-seed-mongo",
+  "name": "rest-mongo",
   "version": "1.0.0",
-  "description": "",
+  "description": "rest api from mongo",
   "main": "index.js",
   "scripts": {
     "test": "mocha --compilers coffee:coffee-script/register ./test/spec"
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/lusionx/rest-seed-mongo.git"
   },
-  "author": "",
+  "author": "liu xing",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/lusionx/rest-seed-mongo/issues"
@@ -23,11 +23,18 @@
     "log4js": "^0.6.33",
     "moment": "^2.12.0",
     "mongoose": "^4.4.7",
-    "redis": "^2.5.1",
-    "tv4": "^1.2.7"
+    "rest-seed": "0.0.1"
   },
   "devDependencies": {
     "request": "^2.69.0",
     "should": "^8.2.2"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "keywords": [
+    "rest",
+    "api",
+    "mongo"
+  ]
 }
