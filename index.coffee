@@ -12,6 +12,16 @@ log4js.configure
 
 
 mongoose = require 'mongoose'
+
+_.each config.plugins, (v, k) ->
+  name = if _.isString v then v else k
+  opt = v if _.isString k
+  try
+    p = require name
+    mongoose.plugin p, opt
+  catch
+    throw new Error 'cant load plugin: ' + name
+
 mongoose.set 'debug', yes
 mongoose.connect config.db
 db = mongoose.connection
