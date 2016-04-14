@@ -19,11 +19,11 @@
   "dependencies": {
     "async": "^1.5.2",
     "commander": "^2.9.0",
-    "lodash": "^4.6.1",
+    "lodash": "^3.10.1",
     "log4js": "^0.6.33",
     "moment": "^2.12.0",
     "mongoose": "^4.4.7",
-    "rest-seed": "0.0.1"
+    "rest-seed": "0.0.2"
   },
   "devDependencies": {
     "request": "^2.69.0",
