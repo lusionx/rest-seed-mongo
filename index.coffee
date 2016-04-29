@@ -35,9 +35,10 @@ initModel = (ls) ->
     yes
   _.each ls, (name) ->
     return if not cond name
-    m = new mongoose.Schema {},
+    opt =
       strict: no
       id: no
+    m = new mongoose.Schema {}, _.extend opt, config.schema
     mongoose.model name, m, name
     console.log 'init', name
 
