@@ -36,14 +36,33 @@ Fields = (req) ->
 
 HEAD_TOTAL = 'X-Content-Total'
 
+_convVal = (v) ->
+  if v in ['__y', '__yes', '__t', '__true']
+    vv = yes
+  else if v in ['__n', '__no', '__f', '__false']
+    vv = no
+  else if m = /^__(\d+)$/.exec v
+    vv = +m[1]
+  else
+    vv = v
+  vv
+
+_convRec = (e) ->
+  logger.debug e
+  _.each e, (v, k) ->
+    logger.debug k, v
+    if _.isString v
+      logger.debug e[k] = _convVal v
+    else
+      _convRec v
+
+
 index = [
   helper.rest.model 'Model'
   (req, res, next) ->
     M = req.hooks.Model
-    query = {}
-    v = req.query.q
-    if v and m = /^(.+?):(.+?)$/.exec v
-      query[m[1]] = m[2]
+    query = req.query.q or {}
+    _convRec query
     M.count query, (err, c) ->
       res.header HEAD_TOTAL, c
       return next err if err

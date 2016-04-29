@@ -11,7 +11,7 @@ conf =
     port: 8100
 
   db: 'mongodb://10.10.3.113:27017/test'
-  plugins: ['mongoose-created-at', 'mongoose-updated-at']
+  plugins: []
 
   apiRoot: '/api_v2'
 
