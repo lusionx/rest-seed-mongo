@@ -1,5 +1,6 @@
 _       = require 'lodash'
 async   = require 'async'
+Qs      = require 'qs'
 
 utils   = require '../lib/utils'
 config  = require '../configs'
@@ -47,22 +48,35 @@ _convVal = (v) ->
     vv = v
   vv
 
-_convRec = (e) ->
-  logger.debug e
-  _.each e, (v, k) ->
-    logger.debug k, v
-    if _.isString v
-      logger.debug e[k] = _convVal v
-    else
-      _convRec v
+
+_fixKey = (q) ->
+  opt =
+    encode: no
+    allowDots: yes
+    delimiter: '&'
+  str = Qs.stringify q, opt
+  logger.debug str
+  o = {}
+  _.each str.split(opt.delimiter), (ss) ->
+    [k, v] = ss.split '='
+    v = _convVal v
+    if m = /^(.+)\$(\w+)$/.exec k
+      k = m[1].slice 0, -1
+      x = {}
+      x['$' + m[2]] = v
+      v = x
+    o[k] = v
+  o
 
 
 index = [
   helper.rest.model 'Model'
   (req, res, next) ->
     M = req.hooks.Model
-    query = req.query.q or {}
-    _convRec query
+    if req.query.q
+      query = _fixKey req.query.q
+    else
+      query = {}
     M.count query, (err, c) ->
       res.header HEAD_TOTAL, c
       return next err if err
